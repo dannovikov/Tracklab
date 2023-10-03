@@ -10,6 +10,7 @@ function App() {
     const [allPlaying, setAllPlaying] = useState(false);
     const [soloActivated, setSoloActivated] = useState(false);
     const [soloTrackID, setSoloTrackID] = useState(-1);
+    const [globalVolume, setGlobalVolume] = useState(0.5);
 
     const registerTrack = useCallback((track) => {
         setTracks(prevTracks => {
@@ -95,15 +96,25 @@ function App() {
         }
     });
 
+    const handleGlobalVolume = useCallback((e) => {
+        // for (let i = 0; i < tracks.length; i++) {
+        //     var currentVolume = tracks[i].waveSurferRef.current.getVolume();
+        //     tracks[i].waveSurferRef.current.setVolume(e.target.value);
+        //     tracks[i].setVolume(e.target.value);
+        // }
+        setGlobalVolume(e.target.value);
+    });
+
 
     return (
         <div className="App">
             {tracks.map(track => (
-                <Track key={track.id} id={track.id} audioFile={track.audioFile} solo={solo} registerTrack={registerTrack} />
+                <Track key={track.id} id={track.id} audioFile={track.audioFile} solo={solo} registerTrack={registerTrack} globalVolume={globalVolume}/>
             ))}
             <button className="rewind" onClick={setPlayHeadToStart}>&lt;&lt;</button>
             <button className="playall" onClick={playAll}>{allPlaying ? 'Pause All' : 'Play All'}</button>
             <button className="addtrack" onClick={addNewTrack}>Add Track</button>
+            <input id="global-volume" orient="horizontal" type="range" min="0" max={"1"} step="0.1" onChange={handleGlobalVolume} defaultValue={globalVolume} />
         </div>
     );
 }

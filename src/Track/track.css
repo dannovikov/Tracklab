@@ -9,6 +9,8 @@
   border-radius: 20px;
   background-color: #6a2692;
   box-shadow: 0 0 5px #ccc;
+  background-color: #e5e5f7;
+  
 }
 
 .waveform-container {
@@ -18,6 +20,8 @@
   position: relative;
   width: 100%;
   height: 100%;
+  margin: 7px;
+  
 }
 
 #waveform {
@@ -41,7 +45,7 @@
 .track-control-buttons {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .track-control-buttons button {
@@ -59,15 +63,8 @@
   /* make it looked pushed in, dimmer */
   border: 3px solid #5d5d5d;
   background-color: #b1b1b1;
-  box-shadow: 0 0 5px #39ff02;
-
-  
-
-
-  
+  box-shadow: 0 0 5px #39ff02; 
 }
-
-
 
 .volume-slider {
   appearance: slider-vertical;

@@ -3,12 +3,13 @@ import WaveSurfer from 'wavesurfer.js';
 import Draggable from 'react-draggable';
 import './track.css';
 
-const Track = ({ id, audioFile, solo, registerTrack}) => {
+const Track = ({ id, audioFile, solo, registerTrack, globalVolume}) => {
     const waveSurferRef = useRef(null);
     const waveFormRef = useRef(null);
     const [isMuted, setIsMuted] = useState(false);
     const [isSolo, setIsSolo] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [volume, setVolume] = useState(0.5);
 
     useEffect(() => { // Initalize Track
         waveSurferRef.current = WaveSurfer.create({
@@ -16,7 +17,7 @@ const Track = ({ id, audioFile, solo, registerTrack}) => {
             waveColor: 'violet',
             progressColor: 'purple',
             interact: false,
-            
+            volume: volume,
         });
 
         waveSurferRef.current.load(audioFile);
@@ -30,7 +31,8 @@ const Track = ({ id, audioFile, solo, registerTrack}) => {
                     isMuted: () => isMuted,
                     setIsMuted: setIsMuted,
                     isPlaying: isPlaying,
-                    setIsPlaying: setIsPlaying
+                    setIsPlaying: setIsPlaying,
+                    setVolume: setVolume
         });
 
     }, []);
@@ -62,8 +64,13 @@ const Track = ({ id, audioFile, solo, registerTrack}) => {
     };
 
     const handleVolume = (e) => {
-        waveSurferRef.current.setVolume(e.target.value);
+        waveSurferRef.current.setVolume(e.target.value * globalVolume);
+        setVolume(e.target.value);
     };
+
+    useEffect(() => {
+        waveSurferRef.current.setVolume(volume * globalVolume);
+    }, [globalVolume]);
 
 
     const handlePlay = () => {
@@ -79,7 +86,7 @@ const Track = ({ id, audioFile, solo, registerTrack}) => {
                     <button className={isSolo ? 'pushed' : 'unpushed'}onClick={toggleSolo}>Solo</button>
                     <button className={isPlaying ? 'pushed' : 'unpushed'}onClick={handlePlay}>Play</button>
                 </div>
-                <input className="volume-slider" type="range" orient="vertical" min="0" max="1" step="0.1" onChange={handleVolume} />
+                <input className="volume-slider" type="range" orient="vertical" min="0" max="1" step="0.1" onChange={handleVolume} defaultValue={volume} />
             </div>
             <div className="waveform-container">
                 <Draggable bounds="parent">
