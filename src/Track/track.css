@@ -21,7 +21,7 @@
 }
 
 #waveform {
-  width: 50%;
+  width: 85%;
   height: 100%;
   /*make it draggable within its parent*/
   cursor: move;
@@ -32,7 +32,9 @@
   flex-direction: row;
   align-items: center;
   justify-content:space-evenly;
-  width: 7%;
+  min-width: 80px;
+  max-width: 7%;
+  
   /* padding-left: 28px; */
 }
 
