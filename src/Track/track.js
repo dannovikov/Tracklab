@@ -35,7 +35,7 @@ const Track = ({ id, audioFile, solo, registerTrack}) => {
 
     }, []);
 
-    useEffect(() => { // Handle Mute
+    useEffect(() => { // Handle Mute by reacting to isMuted state change
         waveSurferRef.current.setMuted(isMuted);
         if (isMuted) {
             waveSurferRef.current.setOptions({
@@ -75,9 +75,9 @@ const Track = ({ id, audioFile, solo, registerTrack}) => {
         <div className="track"> 
             <div className="track-controls">
                 <div className="track-control-buttons">
-                    <button onClick={toggleMute}>{isMuted ? 'Unmute' : 'Mute'}</button>
-                    <button onClick={toggleSolo}>{isSolo ? 'Unsolo' : 'Solo'}</button>
-                    <button onClick={handlePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
+                    <button className={isMuted ? 'pushed' : 'unpushed'}onClick={toggleMute}>Mute</button>
+                    <button className={isSolo ? 'pushed' : 'unpushed'}onClick={toggleSolo}>Solo</button>
+                    <button className={isPlaying ? 'pushed' : 'unpushed'}onClick={handlePlay}>Play</button>
                 </div>
                 <input className="volume-slider" type="range" orient="vertical" min="0" max="1" step="0.1" onChange={handleVolume} />
             </div>

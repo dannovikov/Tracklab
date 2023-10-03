@@ -89,12 +89,19 @@ function App() {
         }
     });
 
+    const setPlayHeadToStart = useCallback(() => {
+        for (let i = 0; i < tracks.length; i++) {
+            tracks[i].waveSurferRef.current.seekTo(0);
+        }
+    });
+
 
     return (
         <div className="App">
             {tracks.map(track => (
                 <Track key={track.id} id={track.id} audioFile={track.audioFile} solo={solo} registerTrack={registerTrack} />
             ))}
+            <button className="rewind" onClick={setPlayHeadToStart}>&lt;&lt;</button>
             <button className="playall" onClick={playAll}>{allPlaying ? 'Pause All' : 'Play All'}</button>
             <button className="addtrack" onClick={addNewTrack}>Add Track</button>
         </div>

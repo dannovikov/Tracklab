@@ -30,9 +30,9 @@
   .track-controls {
     display: flex;
     flex-direction: row;
-    /* align-items: center; */
-    justify-content:space-between;
-    padding-left: 28px;
+    align-items: center;
+    justify-content:space-around;
+    /* padding-left: 28px; */
   }
 
   .track-control-buttons {
@@ -45,13 +45,29 @@
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 3px solid #6e6e6e;
     background-color: #ccc;
     color: #000;
   }
 
+  /* handling pushed and unpushed classes dynamically assigned based on state*/
+
+  .track-control-buttons button.pushed {
+    /* make it looked pushed in, dimmer */
+    border: 3px solid #5d5d5d;
+    background-color: #b1b1b1;
+    box-shadow: 0 0 5px #ccc;
+
+    
+
+
+    
+  }
+
+
+
   .volume-slider {
     appearance: slider-vertical;
-    height: 100px;
-    width: 20px; 
+    height: 80%;
+    width: 5%; 
   }
