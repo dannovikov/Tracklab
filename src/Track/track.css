@@ -27,8 +27,12 @@
 #waveform {
   width: 85%;
   height: 100%;
-  /*make it draggable within its parent*/
   cursor: move;
+  /*create a border */
+  border: 5px solid #c4b9ca;
+  background-color: #363636;
+  border-radius: 10px;
+
 }
 
 .track-controls {

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
+import RecordPlugin from 'wavesurfer.js/plugins/record'
 import Draggable from 'react-draggable';
 import './track.css';
 
