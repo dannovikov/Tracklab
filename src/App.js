@@ -76,7 +76,6 @@ const database = getDatabase(app);
 //   });
 
 
-
 // //   In order to realtime update data/songfiles from the DB we use the onSnapshot method
 // const songRef = firestore.collection('songs').doc('your-song-id');
 // // Listen for changes to the song document
@@ -89,7 +88,6 @@ const database = getDatabase(app);
 //     console.log('Song document does not exist.');
 //   }
 // });
-
 
 
 function App() {
