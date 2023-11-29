@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import Track from './Track/track';
+import { getDatabase, ref, set, get } from "firebase/database";
 
 
 
@@ -26,6 +27,77 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const analytics = getAnalytics(app)
 
+//creating databse with db
+
+
+// function to write data
+async function writeProjectData(title, projectId, duration, songs) {
+    const db = getDatabase();
+    try {
+        await set(ref(db, projectId), {
+            projectId: {
+                Title: title,
+                Duration: duration,
+                songs: songs
+            }
+        });
+        console.log('Data written successfully.');
+    } catch (error) {
+        console.error('Error writing data:', error);
+    }
+}
+// giving trivial example to see if works
+const projectId = 'uniqueProjectId';
+const title = 'Project Title';
+const duration = '3:30';
+const songs = {
+    'song1': {
+        id: 'song1',
+        title: 'Song Title 1',
+        duration: '3:30',
+        audio_mp3: 'song1.mp3'
+    },
+    'song2': {
+        id: 'song2',
+        title: 'Song Title 2',
+        duration: '4:15',
+        audio_mp3: 'song2.mp3'
+    }
+    // Add more song objects as needed
+};
+//Chat gpt says this probably works
+
+
+//Going to try and read now
+async function displayProjectData(projectId) {
+    const db = getDatabase();
+    const projectRef = ref(db, projectId);
+
+    try {
+        const snapshot = await get(projectRef);
+        if (snapshot.exists()) {
+            // Project data exists, you can access it from the snapshot
+            const projectData = snapshot.val();
+            console.log('Project Data:', projectData);
+            // Here, you can use projectData to display the information in your UI
+        } else {
+            // Project data does not exist for the specified project ID
+            console.log('No data found for the specified project ID.');
+        }
+    } catch (error) {
+        // Handle error while fetching project data
+        console.error('Error getting project data:', error);
+    }
+}
+
+// Call the function to display project data for a specific project ID
+
+async function fetchdata() {
+    await writeProjectData(title, projectId, duration, songs)
+    await displayProjectData(projectId);
+}
+fetchdata()
+
 
 
 function App() {
@@ -46,6 +118,9 @@ function App() {
             });
         });
     }, []);
+
+    ///
+    ///
 
     const addNewTrack = useCallback(() => {
         setTrackIDCounter(trackIDCounter + 1);
